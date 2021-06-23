@@ -25,15 +25,19 @@ def main():
     model = YOLOv3Net(cfgfile, model_size, num_classes)
     model.load_weights(weightfile)
     class_names = load_class_names(class_name)
-    win_name = 'Yolov3 detection'
-    cv2.namedWindow(win_name)
+    # win_name = 'Yolov3 detection'
+    # cv2.namedWindow(win_name)
     # specify the video input.
     # 0 means input from cam 0.
     # For video, just change the 0 to video path
     # cap = cv2.VideoCapture(0)
 
-    frame_size = (cap.get(cv2.CAP_PROP_FRAME_WIDTH),
-                  cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    # write file
+    fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+    out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
+                                                       int(cap.get(
+                                                           cv2.CAP_PROP_FRAME_HEIGHT))))
+
     try:
         while True:
             start = time.time()
@@ -52,18 +56,19 @@ def main():
                 confidence_threshold=confidence_threshold)
             img = draw_outputs(frame, boxes, scores,
                                classes, nums, class_names)
-            cv2.imshow(win_name, img)
+            # cv2.imshow(win_name, img)
+            out.write(frame)
             stop = time.time()
             seconds = stop - start
             # print("Time taken : {0} seconds".format(seconds))
             # Calculate frames per second
             fps = 1 / seconds
             print("Estimated frames per second : {0}".format(fps))
-            key = cv2.waitKey(1) & 0xFF
-            if key == ord('q'):
-                break
+            # key = cv2.waitKey(1) & 0xFF
+            # if key == ord('q'):
+            #     break
     finally:
-        cv2.destroyAllWindows()
+        # cv2.destroyAllWindows()
         cap.release()
         print('Detections have been performed successfully.')
 
