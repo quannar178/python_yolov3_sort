@@ -62,12 +62,12 @@ def main():
                                                  classes, nums, class_names)
 
             print("@@@@@@")
-            test = np.array(boxes_top_bottom, dtype=np.int32)
+            test = np.array(boxes_top_bottom, dtype=np.float)
             print("detect", test)
             print("test", len(test) != 0)
             if(len(test) != 0):
                 track_bbs_ids = mot_tracker.update(
-                    np.array(boxes_top_bottom, dtype=np.int32))
+                    np.array(boxes_top_bottom, dtype=np.float))
                 len_id = len(track_bbs_ids)
                 draw_outputs_tracking(frame, track_bbs_ids,
                                       classes, nums, class_names, len_id)
