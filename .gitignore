@@ -139,8 +139,8 @@ cython_debug/
 
 # video
 
-YOLOv3_TF2/videos/
+YOLOv3_TF2/videos/*
 
 # weight
 
-YOLOv3_TF2/weights/
+YOLOv3_TF2/weights/*
