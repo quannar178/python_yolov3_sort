@@ -1,3 +1,4 @@
+from matplotlib.pyplot import box
 import tensorflow as tf
 import numpy as np
 import cv2
@@ -50,15 +51,42 @@ def output_boxes(inputs, model_size, max_output_size, max_output_size_per_class,
 
 
 def draw_outputs(img, boxes, objectness, classes, nums, class_names):
-    boxes, objectness, classes, nums = boxes[0], objectness[0], classes[0], nums[0]
+    boxes, objectness, classes, nums = boxes[0], objectness[0].numpy(
+    ), classes[0], nums[0]
     boxes = np.array(boxes)
+    boxes_top_bottom = []
     for i in range(nums):
         x1y1 = tuple(
             (boxes[i, 0:2] * [img.shape[1], img.shape[0]]).astype(np.int32))
         x2y2 = tuple(
             (boxes[i, 2:4] * [img.shape[1], img.shape[0]]).astype(np.int32))
+        boxes_top_bottom.append(
+            [x1y1[0], x1y1[1], x2y2[0], x2y2[1], objectness[i]])
         img = cv2.rectangle(img, (x1y1), (x2y2), (255, 0, 0), 2)
-        img = cv2.putText(img, '{} {:.4f}'.format(
+        img = cv2.putText(img, 'Detect {} {:.4f}'.format(
             class_names[int(classes[i])], objectness[i]),
-            (x1y1), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 2)
+            (x1y1), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 2)
+    return img, boxes_top_bottom
+
+
+def draw_outputs_tracking(img, boxes, classes, nums, class_names, len_id):
+    classes, nums = classes[0], nums[0]
+    boxes = boxes.astype(int).tolist()
+
+    print("boxes", type(boxes))
+    for i in range(len_id):
+        box = boxes[i]
+        x1 = boxes[i][0]
+        y1 = boxes[i][1]
+        x2 = boxes[i][2]
+        y2 = boxes[i][3]
+        id_box = (box[4])
+        x1y1 = (x1, y1)
+        x2y2 = (x2, y2)
+        xy_text = (x1, y1 + 10)
+        print("xy_text", xy_text)
+        img = cv2.rectangle(img, (x1y1), (x2y2), (0, 0, 255), 2)
+        img = cv2.putText(img, 'ID = {} {}'.format(
+            class_names[int(classes[i])], id_box),
+            (xy_text), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 2)
     return img
