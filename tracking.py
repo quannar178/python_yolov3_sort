@@ -16,7 +16,7 @@ iou_threshold = 0.5
 confidence_threshold = 0.5
 cfgfile = './YOLOv3_TF2/cfg/yolov3.cfg'
 weightfile = './YOLOv3_TF2/weights/yolov3_weights.tf'
-video_path = "./YOLOv3_TF2/videos/test.mp4"
+video_path = "./YOLOv3_TF2/videos/night.avi"
 mot_tracker = Sort()
 
 
@@ -64,11 +64,18 @@ def main():
             print("@@@@@@")
             test = np.array(boxes_top_bottom, dtype=np.int32)
             print("detect", test)
-            track_bbs_ids = mot_tracker.update(np.array(boxes_top_bottom))
-            len_id = len(track_bbs_ids)
-            draw_outputs_tracking(frame, track_bbs_ids,
-                                  classes, nums, class_names, len_id)
-
+            print("test", len(test) != 0)
+            if(len(test) != 0):
+                track_bbs_ids = mot_tracker.update(
+                    np.array(boxes_top_bottom, dtype=np.int32))
+                len_id = len(track_bbs_ids)
+                draw_outputs_tracking(frame, track_bbs_ids,
+                                      classes, nums, class_names, len_id)
+            else:
+                track_bbs_ids = mot_tracker.update()
+                len_id = len(track_bbs_ids)
+                draw_outputs_tracking(frame, track_bbs_ids,
+                                      classes, nums, class_names, len_id)
             # cv2.imshow(win_name, img)
             out.write(frame)
             stop = time.time()
