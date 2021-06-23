@@ -86,7 +86,6 @@ def draw_outputs_tracking(img, boxes, classes, nums, class_names, len_id):
         xy_text = (x1, y1 + 10)
         print("xy_text", xy_text)
         img = cv2.rectangle(img, (x1y1), (x2y2), (0, 0, 255), 2)
-        img = cv2.putText(img, 'ID = {} {}'.format(
-            class_names[int(classes[i])], id_box),
-            (xy_text), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 2)
+        img = cv2.putText(img, 'ID =  {}'.format(id_box),
+                          (xy_text), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 2)
     return img
