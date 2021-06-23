@@ -27,8 +27,8 @@ def main():
     model = YOLOv3Net(cfgfile, model_size, num_classes)
     model.load_weights(weightfile)
     class_names = load_class_names(class_name)
-    win_name = 'Yolov3 detection'
-    cv2.namedWindow(win_name)
+    # win_name = 'Yolov3 detection'
+    # cv2.namedWindow(win_name)
     # specify the video input.
     # 0 means input from cam 0.
     # For video, just change the 0 to video path
@@ -38,9 +38,9 @@ def main():
                   cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
     fourcc = cv2.VideoWriter_fourcc(*'MP4V')
-    out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
-                                                       int(cap.get(
-                                                           cv2.CAP_PROP_FRAME_HEIGHT))))
+    out = cv2.VideoWriter('output_tracking.mp4', fourcc, 20.0, (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
+                                                                int(cap.get(
+                                                                    cv2.CAP_PROP_FRAME_HEIGHT))))
 
     try:
         while True:
@@ -69,7 +69,7 @@ def main():
             draw_outputs_tracking(frame, track_bbs_ids,
                                   classes, nums, class_names, len_id)
 
-            cv2.imshow(win_name, img)
+            # cv2.imshow(win_name, img)
             out.write(frame)
             stop = time.time()
             seconds = stop - start
