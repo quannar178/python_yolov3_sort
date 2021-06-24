@@ -140,7 +140,7 @@ cython_debug/
 # video
 
 **.mp4
-
+**.avi
 # weight
 YOLOv3_TF2/weights/*
 !YOLOv3_TF2/weights/.gitkeep

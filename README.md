@@ -39,3 +39,5 @@ pip install -r requirements.txt
 3. Prepace video or image
 
 4. Change path_video or img_video, then run
+
+NOTE: when your computer has GPU, you can use GPU by uncomment some file in video.py, tracking.py, image.py
