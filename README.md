@@ -41,3 +41,10 @@ pip install -r requirements.txt
 4. Change path_video or img_video, then run
 
 NOTE: when your computer has GPU, you can use GPU by uncomment some file in video.py, tracking.py, image.py
+
+## 4. Demo
+
+![Static camera](https://user-images.githubusercontent.com/31834222/124848320-d2516380-dfc6-11eb-8e77-9b0a40fd9c2f.gif)
+
+
+
