@@ -47,4 +47,4 @@ NOTE: when your computer has GPU, you can use GPU by uncomment some file in vide
 ![Static camera](https://user-images.githubusercontent.com/31834222/124848320-d2516380-dfc6-11eb-8e77-9b0a40fd9c2f.gif)
 
 
-
+![Motion camera](https://user-images.githubusercontent.com/31834222/124848444-0e84c400-dfc7-11eb-8d31-560fcd7f8cc6.gif)
